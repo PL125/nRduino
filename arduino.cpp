@@ -3,6 +3,9 @@
 _Serial Serial;
 
 void arduinoInit(){
+	// HF 시작
+	NRF_CLOCK->TASKS_HFCLKSTART = 1;
+
 	// RTC 초기화
 	rtc_init();
 }
@@ -94,7 +97,6 @@ void _Serial::println(const char *texts){
 
 uint8_t _Serial::read(){
 	uint8_t output = 0;
-	char ch[10];
 	if(nrf_uart_event_check(NRF_UART0, NRF_UART_EVENT_RXDRDY) > 0){
 		output = nrf_uart_rxd_get(NRF_UART0);
 		nrf_uart_event_clear(NRF_UART0, NRF_UART_EVENT_RXDRDY);
@@ -165,7 +167,7 @@ uint32_t millis(){
 
 	// Read Compare/Counter Register
 	output = nrf_rtc_counter_get(NRF_RTC2);
-	output = (float)output/(1000./1024.);
+	output = (float)output/(1000.0f/1024.0f);
 
 	// Clear
 	return output;
@@ -221,7 +223,7 @@ uint16_t analogRead(nrf_saadc_input_t portNo){
 			.resistor_n = NRF_SAADC_RESISTOR_DISABLED,
 			.gain = NRF_SAADC_GAIN1_6,
 			.reference = NRF_SAADC_REFERENCE_INTERNAL,
-			.acq_time = NRF_SAADC_ACQTIME_10US,
+			.acq_time = NRF_SAADC_ACQTIME_40US,
 			.mode = NRF_SAADC_MODE_SINGLE_ENDED,
 			.burst = NRF_SAADC_BURST_DISABLED,
 			.pin_p = portNo,

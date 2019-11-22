@@ -3,7 +3,8 @@
  *
  * Current version : v0.00.01
  * Last update date : Oct. 21, 2019
- * Poject Manager : S.W. Jeong(jswcomkr@naver.com)
+ * Poject Manager : S.W. Jeong
+ * E-mail : jswcomkr@naver.com
  *
  */
 #ifndef ARDUINO_H_
@@ -25,6 +26,7 @@
 #define INPUT 0
 #define HIGH 1
 #define LOW 0
+#define PI 3.141592f
 
 
 // ADC 관련 매크로
